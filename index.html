@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lista com LocalStorage e Tema com Cookies</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app">
+    <section class="card">
+      <div class="topo">
+        <div>
+          <h1>Minha lista</h1>
+          <p>As tarefas ficam salvas no navegador usando localStorage.</p>
+        </div>
+
+        <div class="tema-box" aria-label="Escolha de tema">
+          <button id="temaClaro" type="button">Claro</button>
+          <button id="temaEscuro" type="button">Escuro</button>
+        </div>
+      </div>
+
+      <form id="formTarefa" class="formulario">
+        <input
+          id="inputTarefa"
+          type="text"
+          placeholder="Digite uma tarefa..."
+          autocomplete="off"
+        />
+        <button type="submit">Adicionar</button>
+      </form>
+
+      <ul id="listaTarefas" class="lista"></ul>
+
+      <div class="rodape">
+        <span id="contador">0 tarefas salvas</span>
+        <button id="limparTudo" class="perigo" type="button">Limpar tudo</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
