@@ -5,11 +5,47 @@ const contador = document.getElementById("contador");
 const btnLimparTudo = document.getElementById("limparTudo");
 const btnTemaClaro = document.getElementById("temaClaro");
 const btnTemaEscuro = document.getElementById("temaEscuro");
+const displayCalc = document.getElementById("displayCalc");
+const buttonsCalc = document.querySelectorAll(".grid-botoes button");
 
 let tarefas = JSON.parse(localStorage.getItem("tarefas")) || [];
+let expressaoCalc = "";
 
 function salvarTarefas() {
   localStorage.setItem("tarefas", JSON.stringify(tarefas));
+}
+
+function atualizarDisplayCalc() {
+  displayCalc.value = expressaoCalc === "" ? "0" : expressaoCalc;
+}
+
+function limparCalculadora() {
+  expressaoCalc = "";
+  atualizarDisplayCalc();
+}
+
+function calcularResultado() {
+  if (expressaoCalc === "") {
+    return;
+  }
+
+  const expressaoSegura = expressaoCalc.replace(/×/g, "*").replace(/÷/g, "/");
+  const regexValido = /^[0-9+\-*/.%() ]+$/;
+
+  if (!regexValido.test(expressaoSegura)) {
+    displayCalc.value = "Erro";
+    expressaoCalc = "";
+    return;
+  }
+
+  try {
+    const resultado = eval(expressaoSegura);
+    expressaoCalc = String(resultado);
+  } catch {
+    expressaoCalc = "Erro";
+  }
+
+  atualizarDisplayCalc();
 }
 
 function renderizarTarefas() {
@@ -85,6 +121,35 @@ btnLimparTudo.addEventListener("click", () => {
   tarefas = [];
   salvarTarefas();
   renderizarTarefas();
+});
+
+buttonsCalc.forEach((button) => {
+  button.addEventListener("click", () => {
+    const value = button.dataset.value;
+
+    if (value === "C") {
+      limparCalculadora();
+      return;
+    }
+
+    if (value === "=") {
+      calcularResultado();
+      return;
+    }
+
+    if (value === "+/-") {
+      if (expressaoCalc.startsWith("-")) {
+        expressaoCalc = expressaoCalc.slice(1);
+      } else {
+        expressaoCalc = expressaoCalc ? `-${expressaoCalc}` : expressaoCalc;
+      }
+      atualizarDisplayCalc();
+      return;
+    }
+
+    expressaoCalc += value;
+    atualizarDisplayCalc();
+  });
 });
 
 function criarCookie(nome, valor, dias) {

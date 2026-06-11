@@ -84,6 +84,50 @@ button:hover {
   margin-bottom: 20px;
 }
 
+.calculadora {
+  margin: 24px 0;
+}
+
+.calculadora h2 {
+  margin-bottom: 14px;
+  font-size: 1.3rem;
+}
+
+.display {
+  width: 100%;
+  border: 2px solid #c7d2fe;
+  border-radius: 16px;
+  padding: 16px 18px;
+  font-size: 1.6rem;
+  text-align: right;
+  background: rgba(243, 244, 255, 0.9);
+  margin-bottom: 16px;
+}
+
+.grid-botoes {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.grid-botoes button {
+  padding: 18px 0;
+  border-radius: 14px;
+  font-size: 1rem;
+}
+
+.grid-botoes button[data-value="C"],
+.grid-botoes button[data-value="+/-"],
+.grid-botoes button[data-value="%"] {
+  background: #e2e8f0;
+  color: #111827;
+}
+
+.grid-botoes button.igual {
+  grid-column: span 2;
+  background: #4f46e5;
+}
+
 input {
   flex: 1;
   border: 2px solid #c7d2fe;
